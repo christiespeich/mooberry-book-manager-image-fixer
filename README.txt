@@ -22,7 +22,7 @@ Sometimes, these images need to be reset. Possible causes could be:
 
 This plugin will fix these images.
 
-To use, go to **Tools** -> **Book Manager Image Fixer** and select the image(s) you want to fix. Please be patient while the images are bein fixed. It can take a moment.
+To use, go to **Tools** -> **Book Manager Image Fixer** and select the image(s) you want to fix. Please be patient while the images are being fixed. It can take a moment.
 
 
 **NOTE:** Mooberry Book Manager Image Fixer is translatable. If you'd like to volunteer a translation for your language, the template file (.pot) is available in the `languages` folder. [Contact us](http://www.mooberrydreams.com/contact/) when your translation is ready or if you need assistance.

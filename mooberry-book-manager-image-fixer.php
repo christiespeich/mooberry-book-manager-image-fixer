@@ -1,27 +1,27 @@
 <?php
  /*
-    Plugin Name: Mooberry Book Manager Image Fixer
-    Plugin URI: http://www.mooberrydreams.com/products/mooberry-book-manager/
-    Description: Fixes broken retailer, format, goodreads, and placeholder book cover images in Mooberry Book Manager.
-    Author: Mooberry Dreams
-    Version: 1.0
-    Author URI: http://www.mooberrydreams.com/
-	Text Domain: mooberry-book-manager-image-fixer
+Plugin Name: Mooberry Book Manager Image Fixer
+Plugin URI: http://www.mooberrydreams.com/products/mooberry-book-manager/
+Description: Fixes broken retailer, format, goodreads, and placeholder book cover images in Mooberry Book Manager.
+Author: Mooberry Dreams
+Version: 1.0
+Author URI: http://www.mooberrydreams.com/
+Text Domain: mooberry-book-manager-image-fixer
 
-	Copyright 2015  Mooberry Dreams  (email : bookmanager@mooberrydreams.com)
+Copyright 2015  Mooberry Dreams  (email : bookmanager@mooberrydreams.com)
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
-    published by the Free Software Foundation.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as 
+published by the Free Software Foundation.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA	
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA	
 	
 */
 
@@ -117,8 +117,6 @@ function mbdbif_override_save( $override, $options, $options_object ) {
 	
 	$image_options = array_keys(mbdbif_image_options());
 	
-	
-	
 	if ( !is_array($options) || ! array_key_exists('mbdbif_images_to_fix', $options) || empty(array_intersect($image_options, $options['mbdbif_images_to_fix'])) ) {
 
 		add_settings_error( 'mbdbif_options-notices', '', __( 'You must select at least one type of image.', 'mooberry-book-manager-image-fixer' ), 'error' );
@@ -197,7 +195,9 @@ function mbdbif_fix_images( $images, $restore ) {
 				$error = mbdbif_fix_multiple_images( $image, $defaults, $restore );
 				break;
 		}
-		array_merge($errors, $error);
+	
+		$errors = array_merge($errors, $error);
+		
 	}
 	if (count($errors)>0) {
 		$message =  __('The following images were not able to be fixed:', 'mooberry-book-manager-image-fixer');
@@ -267,7 +267,7 @@ function mbdbif_fix_multiple_images( $setting, $defaults, $restore ) {
 					$mbdb_options[$setting][$index]['image'] = wp_get_attachment_url( $attachID );
 				}
 			} else {
-				$error[] = $mbdb_option[$setting][$index]['name'] . '(' . $setting . ')';
+				$error[] = $mbdb_options[$setting][$index]['name'] . ' (' . $setting . ')';
 			}
 		}
 	}
