@@ -68,10 +68,25 @@ function mbdbif_register_script() {
 	}
 }
 
-add_action( 'admin_menu', 'mbdbif_settings_menu');
-	function mbdbif_settings_menu() {
-		add_management_page( __('Mooberry Book Manager Image Fixer', 'mooberry-book-manager-image-fixer'), __('Book Manager Image Fixer', 'mooberry-book-manager-image-fixer'), 'manage_options', 'mbdbif_settings', 'mbdbif_settings_page');
+add_action( 'init', 'mbdbif_init');
+function mbdbif_init() {
+	
+	$current_version = get_option(MBDBIF_PLUGIN_VERSION_KEY);
+		
+	if ($current_version == '') {
+		$current_version = MBDBIF_PLUGIN_VERSION;
 	}
+	// do any upgrade routines here
+	
+	
+	// update to current version
+	update_option(MBDBIF_PLUGIN_VERSION_KEY, MBDBIF_PLUGIN_VERSION);
+}
+
+add_action( 'admin_menu', 'mbdbif_settings_menu');
+function mbdbif_settings_menu() {
+	add_management_page( __('Mooberry Book Manager Image Fixer', 'mooberry-book-manager-image-fixer'), __('Book Manager Image Fixer', 'mooberry-book-manager-image-fixer'), 'manage_options', 'mbdbif_settings', 'mbdbif_settings_page');
+}
 		
 function mbdbif_settings_page() {
 	echo '<h1>' . __('Mooberry Book Manager Image Fixer', 'mooberry-book-manager-image-fixer') . '</h1>';
