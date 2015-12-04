@@ -55,16 +55,20 @@ function mbdbif_dependency_fail() {
 
 add_action( 'admin_head', 'mbdbif_register_admin_styles' );
 function mbdbif_register_admin_styles() {
-	if (is_admin() && ($_GET['page'] == 'mbdbif_settings') ) {
-		wp_register_style( 'mbdbif_admin_styles', plugins_url( 'style.css', __FILE__)  );
-		wp_enqueue_style( 'mbdbif_admin_styles' );
+	if (array_key_exists('page', $_GET)) {
+		if (is_admin() && ($_GET['page'] == 'mbdbif_settings') ) {
+			wp_register_style( 'mbdbif_admin_styles', plugins_url( 'style.css', __FILE__)  );
+			wp_enqueue_style( 'mbdbif_admin_styles' );
+		}
 	}
 }
 
 add_action( 'admin_footer', 'mbdbif_register_script');
 function mbdbif_register_script() {
-	if ( is_admin() && ($_GET['page'] == 'mbdbif_settings') ) {
-		wp_enqueue_script( 'admin-image-fixer',  plugins_url( 'image-fixer.js', __FILE__)); 
+	if (array_key_exists('page', $_GET)) {
+		if ( is_admin() && ($_GET['page'] == 'mbdbif_settings') ) {
+			wp_enqueue_script( 'admin-image-fixer',  plugins_url( 'image-fixer.js', __FILE__)); 
+		}
 	}
 }
 
