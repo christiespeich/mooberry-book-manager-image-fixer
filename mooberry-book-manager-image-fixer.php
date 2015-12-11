@@ -4,7 +4,7 @@ Plugin Name: Mooberry Book Manager Image Fixer
 Plugin URI: http://www.mooberrydreams.com/products/mooberry-book-manager/
 Description: Fixes broken retailer, format, goodreads, and placeholder book cover images in Mooberry Book Manager.
 Author: Mooberry Dreams
-Version: 1.0
+Version: 1.1
 Author URI: http://www.mooberrydreams.com/
 Text Domain: mooberry-book-manager-image-fixer
 
@@ -38,6 +38,8 @@ function mbdbif_check_dependencies() {
 		  add_action( 'admin_notices', 'mbdbif_dependency_fail' );
 		 } 
 	}
+	
+	load_plugin_textdomain( 'mooberry-book-manager-image-fixer', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 }	
 
@@ -140,8 +142,11 @@ function mbdbif_override_save( $override, $options, $options_object ) {
 	
 	$image_options = array_keys(mbdbif_image_options());
 	
-	if ( !is_array($options) || ! array_key_exists('mbdbif_images_to_fix', $options) || empty(array_intersect($image_options, $options['mbdbif_images_to_fix'])) ) {
-
+	if ( is_array($options) && array_key_exists('mbdbif_images_to_fix', $options)) {
+		$images = array_intersect($image_options, $options['mbdbif_images_to_fix']);
+	}
+	
+	if ( !is_array($options) || ! array_key_exists('mbdbif_images_to_fix', $options) || empty( $images ) ) {
 		add_settings_error( 'mbdbif_options-notices', '', __( 'You must select at least one type of image.', 'mooberry-book-manager-image-fixer' ), 'error' );
 		settings_errors( 'mbdbif_options-notices' );
 		return '';
@@ -299,3 +304,15 @@ function mbdbif_fix_multiple_images( $setting, $defaults, $restore ) {
 	return $error;
 }
 
+// for users with PHP <5.5
+if(!function_exists("array_column"))
+{
+
+    function array_column($array,$column_name)
+    {
+
+        return array_map(function($element) use($column_name){return $element[$column_name];}, $array);
+
+    }
+
+}
