@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 define('MBDBIF_PLUGIN_DIR', plugin_dir_path( __FILE__ )); 
 define('MBDBIF_PLUGIN_VERSION_KEY', 'mbdbif_version');
-define('MBDBIF_PLUGIN_VERSION', '1.0');
+define('MBDBIF_PLUGIN_VERSION', '1.1');
 
 add_action( 'plugins_loaded', 'mbdbif_check_dependencies' );
 function mbdbif_check_dependencies() {
