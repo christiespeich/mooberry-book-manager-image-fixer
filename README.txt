@@ -4,7 +4,7 @@ Donate link: http://www.mooberrydreams.com/
 Tags: mooberry book manager
 Requires at least: 3.8.0
 Tested up to: 4.4
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,9 @@ You webhost is using a version of PHP prior to 5.5.  Update Mooberry Book Manage
 1. Example
 
 == Changelog ==
+
+= 1.2 = 
+* Updated: keep in sync with MBM 2.4.2's new images
 
 = 1.1 =
 * Fixed: uses column_exists() wrapper function in case PHP <5.5 is used
