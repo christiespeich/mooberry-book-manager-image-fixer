@@ -3,8 +3,8 @@ Contributors: mooberrydreams
 Donate link: http://www.mooberrydreams.com/
 Tags: mooberry book manager
 Requires at least: 3.8.0
-Tested up to: 4.4
-Stable tag: 1.2
+Tested up to: 4.5
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,13 @@ You webhost is using a version of PHP prior to 5.5.  Update Mooberry Book Manage
 1. Example
 
 == Changelog ==
+
+= 1.3 =
+* Fixed: conflicts with MBM 3.0
+* Improved: Now links direct to the images instead of uploading to media directory
+* Improved: with MBM 3.0, this is now a page under "Mooberry Book Manager Settings" (pre MBM 3.0 this remains in the Tools menu)
+* Removed: Restore Images option (no longer necessary as images aren't uploaded to media dir)
+* Wordpress 4.5 compliance
 
 = 1.2 = 
 * Updated: keep in sync with MBM 2.4.2's new images
