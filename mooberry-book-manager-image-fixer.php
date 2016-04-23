@@ -142,7 +142,7 @@ function mbdbif_settings_page_v3( $metabox, $tab) {
 					'id'	=> 'mbdbif_title',
 					'name'	=>	__('REPAIR IMAGES', 'mooberry-book-manager-image-fixer'),
 					'type'	=>	'title',
-					'desc' =>__('This will restore the original images that were included with Mooberry Book Manager. Images that were deleted will not be restored unless Restore is checked below.', 'mooberry-book-manager-image-fixer') . ' <br><br><b>' . __('Please be patient. The process can take a minute to run.', 'mooberry-book-manager-image-fixer') . '</b>',
+					'desc' =>__('This will restore the original images that were included with Mooberry Book Manager. Images that were deleted will not be restored unless Restore is checked below.', 'mooberry-book-manager-image-fixer'),
 				)
 			);
 			$metabox->add_field( 	 array(
@@ -389,21 +389,29 @@ function mbdbif_fix_multiple_images( $setting, $defaults, $restore ) {
 	if ( array_key_exists($setting, $mbdb_options) ) {
 		$existing_ids = array_column( $mbdb_options[$setting], 'uniqueID');
 	} else {
-		$restore = true;
-		$existing_ids = array_column( $defaults, 'uniqueID');
+		$existing_ids = array(); //array_column( $defaults, 'uniqueID');
 	}
 	
 	$error = array();
 	foreach( $defaults as $default ) {
 		// if this default is in the existing settings OR we're restoring deleted ones
-		if (in_array($default['uniqueID'], $existing_ids) || $restore ) {
+		//if (in_array($default['uniqueID'], $existing_ids) || $restore ) {
 			//$attachID = mbdb_upload_image( $default['image'] );
-			
-			$index = array_search($default['uniqueID'], $existing_ids );
 			global $mbdb_url;
 			$path = $mbdb_url . 'includes/assets/' . $default['image']; 
-			$mbdb_options[$setting][$index]['image'] = $path;
-			$mbdb_options[$setting][$index]['image_id'] = 0;
+			
+			if (in_array($default['uniqueID'], $existing_ids) ) {
+				$index = array_search($default['uniqueID'], $existing_ids );
+				$mbdb_options[$setting][$index]['name'] = $default['name'];
+				$mbdb_options[$setting][$index]['image'] = $path;
+				$mbdb_options[$setting][$index]['image_id'] = 0;
+			} else {
+				$mbdb_options[$setting][] = array( 'name' => $default['name'],
+													'image'	=> $path,
+													'uniqueID'	=> $default['uniqueID'],
+													'image_id'	=> 0,
+												);
+			}
 			/* if ( $attachID != 0 ) {
 				// if it wasn't found that means we're restoring a deleted one
 				if ( $index === false ) {
@@ -421,7 +429,7 @@ function mbdbif_fix_multiple_images( $setting, $defaults, $restore ) {
 				$error[] = $mbdb_options[$setting][$index]['name'] . ' (' . $setting . ')';
 			}
 			*/
-		}
+		//}
 	}
 	
 	update_option('mbdb_options', $mbdb_options);
