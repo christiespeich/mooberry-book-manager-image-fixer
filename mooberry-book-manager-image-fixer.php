@@ -33,8 +33,16 @@ $mbdb_version = get_option('mbdb_version');
 $mbdb_url = '';
 
 
-add_action( 'plugins_loaded', 'mbdbif_check_dependencies' );
-function mbdbif_check_dependencies() {
+
+
+	 add_action( 'plugins_loaded', 'mbdbif_check_dependencies' );
+	/**
+	 *  checks for MBM and deactivates with notice if MBM is not activated
+	 *  
+	 *  
+	 *  
+	 */
+	 function mbdbif_check_dependencies() {
 	// requires Book Manager
 	if( !function_exists( 'mbdb_activate' ) ) {
 		if ( current_user_can( 'activate_plugins' ) ) {
@@ -121,7 +129,17 @@ function mbdbif_init() {
 	add_action( 'admin_menu', 'mbdbif_settings_menu');
 }
 
- function mbdbif_add_options_page( $pages ) {
+	 /**
+	 *  
+	 *  Adds option Page
+	 *  
+	 *  @param [in] $pages  array
+	 *  
+	 *  @return array
+	 *  
+	 *  @since 
+	 *  
+	 */function mbdbif_add_options_page( $pages ) {
 	$pages['mbdbif_fix_images'] = array ( 
 					'page_title'	=>	__('Mooberry Book Manager Image Fixer', 'mooberry-book-manager-image-fixer'),
 					'menu_title'	=>	__('Image Fixer', 'mbm-multi-author')
